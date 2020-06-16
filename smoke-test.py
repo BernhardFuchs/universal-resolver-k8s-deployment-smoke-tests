@@ -8,7 +8,7 @@ import json
 import yaml
 import getopt
 import asyncio
-from aiohttp import ClientSession
+from aiohttp import ClientSession, ClientTimeout
 import aiofiles
 
 logging.basicConfig(
@@ -66,12 +66,13 @@ async def parse(url, session):
 
 
 async def write_one(file, data, session):
-    res = await parse(url=data['url'], session=session)
-    if not res:
-        return None
-    async with aiofiles.open(file, "a") as f:
-        await f.write(f"{data['url']}\t{res}\n")
-        logger.info("Wrote results for source URL: %s", data['url'])
+    url = data['url']
+    try:
+        res = await parse(url, session=session)
+        logger.debug(res)
+    except asyncio.TimeoutError:
+        logger.info("Timeout Error for %s", url)
+    logger.info("----------------------------------------------------------------------")
 
 
 async def run_tests(file, test_data):

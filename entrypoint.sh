@@ -2,8 +2,10 @@
 
 echo "#### Smoketest for the Universal Resolver Kubernetes Deployment ####"
 
-echo "$HOST"
-echo "$CONFIG"
+sh -c "echo $*"
+
+echo "$INPUT_HOST"
+echo "$INPUT_CONFIG"
 
 echo "Current folder"
 pwd
@@ -20,5 +22,4 @@ cat /github/workspace/deploy/uni-resolver-ingress.yaml
 
 python --version
 
-# shellcheck disable=SC2164
-python /smoke-tests/smoke-test.py --host "$HOST" --config "$CONFIG"
+python /smoke-tests/smoke-test.py --host "$INPUT_HOST" --config "$INPUT_CONFIG"

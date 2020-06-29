@@ -8,8 +8,7 @@ import json
 import yaml
 import getopt
 import asyncio
-from aiohttp import ClientSession, ClientTimeout
-import aiofiles
+from aiohttp import ClientSession
 
 logging.basicConfig(
     format="%(asctime)s %(levelname)s:%(name)s: %(message)s",
@@ -88,27 +87,24 @@ async def run_tests(file, test_data):
 # Run tests END
 
 def main(argv):
-    ingress = '../out/uni-resolver-ingress.yaml'
-    config = './test-config.json'
+    host = 'https://dev.uniresolver.io'
+    config = '/github/workspace/test-config.json'
     try:
-        opts, args = getopt.getopt(argv, "hi:c:", ["ingress=", "config="])
+        opts, args = getopt.getopt(argv, "h:c:", ["host=", "config="])
     except getopt.GetoptError:
         print('./smoke-test.py -i <ingress-file> -c <uni-resolver-config>')
         sys.exit(2)
     for opt, arg in opts:
-        if opt == '-h':
+        if opt == '--help':
             print('./smoke-test.py -i <ingress-file> -c <uni-resolver-config>')
             sys.exit()
-        elif opt in ("-i", "--ingress"):
-            ingress = arg
+        elif opt in ("-h", "--host"):
+            host = arg
         elif opt in ("-c", "--config"):
             config = arg
 
-    # read config
-    with open(ingress) as stream:
-        ingress = yaml.safe_load(stream)
-        host = ingress['spec']['rules'][0]['host']
-        uni_resolver_path = "http://" + host + "/1.0/identifiers/"
+    uni_resolver_path = host + "/1.0/identifiers/"
+    print('Resolving for: ' + uni_resolver_path)
 
     # build test data
     config_dict = parse_json_to_dict(config)

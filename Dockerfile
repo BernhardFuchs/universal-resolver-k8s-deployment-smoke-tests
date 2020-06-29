@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./smoke-test.py .
 
-ENV INGRESS_FILE=""
+ENV HOST=""
 ENV CONFIG_FILE=""
 
-CMD [ "sh", "-c", "python ./smoke-test.py -i ${INGRESS_FILE} -c ${CONFIG_FILE}" ]
+CMD [ "sh", "-c", "python ./smoke-test.py -h ${HOST} -c ${CONFIG_FILE}" ]

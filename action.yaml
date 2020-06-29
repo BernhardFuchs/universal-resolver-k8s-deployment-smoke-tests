@@ -1,0 +1,12 @@
+name: 'uni-resolver-smoke-tests'
+description: 'Smoke tests for Universal Resolver kubernetes deployment'
+inputs:
+  host:
+    description: 'Host of Uni-Resolver deployment'
+    required: false
+    default: 'http//dev.uniresolver.com'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.host }}

@@ -4,9 +4,14 @@ inputs:
   host:
     description: 'Host of Uni-Resolver deployment'
     required: false
-    default: 'http//dev.uniresolver.com'
+    default: http//dev.uniresolver.io
+  config:
+    description: 'Uni-Resolver configuration file'
+    required: false
+    default: /github/workspace/config.json
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.host }}
+    - ${{ inputs.config }}

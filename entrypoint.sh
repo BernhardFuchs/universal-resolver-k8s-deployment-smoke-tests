@@ -21,4 +21,4 @@ cat /github/workspace/deploy/uni-resolver-ingress.yaml
 python --version
 
 # shellcheck disable=SC2164
-python ./smoke-test.py --host "$HOST" --config "$CONFIG"
+python /smoke-tests/smoke-test.py --host "$HOST" --config "$CONFIG"

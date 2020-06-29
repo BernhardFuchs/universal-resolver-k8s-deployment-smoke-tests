@@ -12,14 +12,14 @@ LABEL "com.github.actions.color"="red"
 RUN apt-get update && \
     apt-get upgrade -y
 
-WORKDIR /usr/src/app
-
-COPY requirements.txt ./
+COPY requirements.txt /
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./smoke-test.py .
+COPY /smoke-test.py .
 
-ENV HOST=""
-ENV CONFIG_FILE=""
+ENV HOST="https://dev.uniresolver.io"
+ENV CONFIG="/github/workspace/test-config.json"
 
-CMD [ "sh", "-c", "python ./smoke-test.py -h ${HOST} -c ${CONFIG_FILE}" ]
+COPY /entrypoint.sh .
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

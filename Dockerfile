@@ -1,21 +1,21 @@
 FROM python:3.8.3-buster
 
-LABEL "name"="Smoke tests for Deployment of the Universal Resolver to a Kubernetes Cluster"
-LABEL "maintainer"="Bernhard <bernhard.fuchs@danubetech.com>"
+LABEL "com.github.actions.name"="Smoke Test"
+LABEL "com.github.actions.description"="Smoke Test for testing the Universal Resolver after a deplyoment"
+LABEL "com.github.actions.icon"="mic"
+LABEL "com.github.actions.color"="blue"
 LABEL "version"="1.0.0"
-
-LABEL "com.github.actions.name"="GitHub Action for testing a deployment of the Universal Resolver"
-LABEL "com.github.actions.description"="Tests a deployment of the Universal Resolver to a Kubernetes cluster."
-LABEL "com.github.actions.icon"="package"
-LABEL "com.github.actions.color"="red"
+LABEL "repository"="https://github.com/BernhardFuchs/universal-resolver-k8s-deployment-smoke-tests"
+LABEL "homepage"="https://uniresolver.io"
+LABEL "maintainer"="Bernhard Fuchs <bernhard.fuchs@danubetech.com>"
 
 RUN apt-get update && \
     apt-get upgrade -y
 
-COPY requirements.txt /
+COPY app/requirements.txt /
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY /smoke-test.py .
+COPY /app/smoke-test.py .
 
 ENV HOST="https://dev.uniresolver.io"
 ENV CONFIG="/github/workspace/test-config.json"

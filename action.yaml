@@ -4,7 +4,7 @@ inputs:
   host:
     description: 'Host of Uni-Resolver deployment'
     required: false
-    default: http//dev.uniresolver.io
+    default: http://dev.uniresolver.io
   config:
     description: 'Uni-Resolver configuration file'
     required: false

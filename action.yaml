@@ -9,9 +9,14 @@ inputs:
     description: 'Uni-Resolver configuration file'
     required: false
     default: /github/workspace/config.json
+  out_folder:
+    description: 'Folder location of smoke-tests-result-<timestamp> file'
+    required: false
+    default: /smoke-tests
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.host }}
     - ${{ inputs.config }}
+    - ${{ inputs.out_folder }}

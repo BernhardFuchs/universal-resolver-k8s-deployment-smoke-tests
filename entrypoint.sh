@@ -10,7 +10,7 @@ echo "config: $INPUT_CONFIG"
 echo "out folder: $INPUT_OUT_FOLDER"
 echo "debug: $INPUT_DEBUG"
 
-if [ "$INPUT_DEBUG" ]; then
+if "$INPUT_DEBUG"; then
   echo "Current folder"
   pwd
   ls -al

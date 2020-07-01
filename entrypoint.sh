@@ -2,27 +2,31 @@
 
 echo "#### Smoketest for the Universal Resolver Kubernetes Deployment ####"
 
+echo "Running with parameters:"
 sh -c "echo $*"
 
-echo "$INPUT_HOST"
-echo "$INPUT_CONFIG"
-echo "$INPUT_OUT_FOLDER"
+echo "host: $INPUT_HOST"
+echo "config: $INPUT_CONFIG"
+echo "out folder: $INPUT_OUT_FOLDER"
+echo "debug: $INPUT_DEBUG"
 
-echo "Current folder"
-pwd
-ls -al
+if [ "$INPUT_DEBUG" ]; then
+  echo "Current folder"
+  pwd
+  ls -al
 
-echo "Deployment folder"
-ls -al deploy
+  echo "Deployment folder"
+  ls -al deploy
 
-echo "Root folder"
-ls -al /
+  echo "Root folder"
+  ls -al /
 
-echo "#### Ingress file ####"
-cat /github/workspace/deploy/uni-resolver-ingress.yaml
+  echo "#### Ingress file ####"
+  cat /github/workspace/deploy/uni-resolver-ingress.yaml
+fi
 
 python --version
 
 python /smoke-tests/smoke-test.py --host "$INPUT_HOST" --config "$INPUT_CONFIG" --out "$INPUT_OUT_FOLDER"
 
-ls -al /smoke-tests
+cat -b /smoke-tests/smoke-tests-result-*.json
